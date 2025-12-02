@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/nav_bg_tint</item>
+    </style>
+    <style name="CustomAddButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <!-- Text Color (Normal state) -->
+        <item name="android:textColor">#E3E3E3</item>
+        <!-- Background Color (Transparent for text button, or specific color) -->
+        <item name="backgroundTint">@color/nav_bg_tint</item>
+        <!-- Ripple Color (The color that appears when clicked/touched) -->
+        <item name="rippleColor">@android:color/transparent</item>
+        <!-- Border (Stroke) -->
+        <item name="strokeColor">@color/nav_bg_tint</item>
+        <item name="strokeWidth">1dp</item>
+        <!-- Corner Radius (Roundness) -->
+        <item name="cornerRadius">8dp</item>
+        <!-- Font/Text Size -->
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <!-- Padding inside the button -->
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+
+        <!-- "Cursor" / State List (Optional: Change color when pressed) -->
+        <!-- If you want the text to change color when pressed, you need a ColorStateList selector -->
+    </style>
+</resources>

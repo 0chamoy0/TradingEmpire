@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreferenceCompat
+        android:key="pref_key_theme_switch"
+        android:title="Dark Theme"
+        android:summaryOff="App is currently using the Light Theme."
+        android:summaryOn="App is currently using the Dark Theme."
+        android:defaultValue="false"
+        />
+
+
+    <Preference
+        android:key="pref_key_notification_permission"
+        android:title="Manage Notifications"
+        android:summary="Open system settings to allow or deny notifications."
+        />
+</androidx.preference.PreferenceScreen>

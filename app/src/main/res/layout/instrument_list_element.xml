@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/instrumentFrag"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/borderbg"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+    <TextView
+        android:id="@+id/symbolName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:textColor="#E3E3E3"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="6dp"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/upPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#00C402"
+        android:layout_marginEnd="6dp"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/downPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#C4000A"
+        android:layout_marginEnd="6dp"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="#E3E3E3"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
