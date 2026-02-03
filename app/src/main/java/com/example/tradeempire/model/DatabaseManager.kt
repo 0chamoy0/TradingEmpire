@@ -13,6 +13,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
+@Entity(tableName = "chartSymbol")
+data class ChartSymbolEntity(
+    @PrimaryKey
+    val symbol: String
+)
 @Entity(tableName = "symbols")
 data class SymbolEntity(
     @PrimaryKey
@@ -22,7 +27,7 @@ data class SymbolEntity(
     val displaySymbol: String
 )
 
-// Entity for the Stock Quote
+
 @Entity(tableName = "quotes")
 data class QuoteEntity(
     @PrimaryKey
@@ -49,11 +54,14 @@ data class SubSymbolEntity(
 @Dao
 interface QuoteDao {
 
-    // Insert a single quote, replacing it if the symbol already exists
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertChartSymbol(symbol: ChartSymbolEntity)
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuote(quote: QuoteEntity)
 
-    // Insert a list of quotes
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllQuotes(quotes: List<QuoteEntity>)
 
@@ -63,15 +71,21 @@ interface QuoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSymbols(quote: SymbolEntity)
 
-    // Insert a list of quotes
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllSymbols(quotes: List<SymbolEntity>)
 
-    // Get a single quote by symbol
+    @Query("SELECT * FROM chartSymbol LIMIT 1")
+    suspend fun getChartSymbol(): ChartSymbolEntity?
+
+    @Query("DELETE FROM chartSymbol")
+    suspend fun clearChartSymbols()
+
+
     @Query("SELECT * FROM quotes WHERE symbol = :symbol")
     suspend fun getQuoteBySymbol(symbol: String): QuoteEntity?
 
-    // Get quotes for multiple symbols
+
     @Query("SELECT * FROM quotes WHERE symbol IN (:symbols)")
     suspend fun getQuotesBySymbols(symbols: List<String>): List<QuoteEntity>
 
@@ -81,17 +95,15 @@ interface QuoteDao {
     @Query("SELECT * FROM subscribedSymbols")
     suspend fun getSubscribedSymbols(): List<SubSymbolEntity>
 
-    // Delete quotes older than a certain timestamp (for cache clearing)
     @Query("DELETE FROM quotes WHERE cachedAt < :timestampThreshold")
     suspend fun deleteStaleQuotes(timestampThreshold: Long): Int
 }
 
-@Database(entities = [SymbolEntity::class, QuoteEntity::class, SubSymbolEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ChartSymbolEntity::class, SymbolEntity::class, QuoteEntity::class, SubSymbolEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun quoteDao(): QuoteDao
 
-    // Companion object for Singleton Pattern
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -102,7 +114,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "finnhub_db"
-                ).build()
+                ).fallbackToDestructiveMigration(false)
+                .build()
                 INSTANCE = instance
                 instance
             }

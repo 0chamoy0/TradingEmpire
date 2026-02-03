@@ -8,10 +8,27 @@ import java.math.BigInteger
 
 interface FinnhubApi {
     @GET("quote")
-    suspend fun getQuote(@Query("symbol") symbol: String, @Query("token") token: String): QuoteResponse
+    suspend fun getQuote(
+        @Query("symbol") symbol: String,
+        @Query("token") token: String
+    ): QuoteResponse
 
     @GET("stock/symbol")
-    suspend fun getSymbols(@Query("exchange") exchange: String, @Query("token") token: String): List<SymbolInfo>
+    suspend fun getSymbols(
+        @Query("exchange") exchange: String,
+        @Query("token") token: String
+    ): List<SymbolInfo>
+}
+interface TwelveDataApi{
+    @GET("time_series")
+    suspend fun getTwelveDataCandles(
+        @Query("symbol") symbol: String,
+        @Query("interval") interval: String, // e.g., "1day" or "1h"
+        @Query("outputsize") outputsize: Int, // Number of candles (e.g., 30)
+        @Query("apikey") apiKey: String
+    ): TwelveDataResponse
+
+    //key: 71f3398c2ea94691ac223325bc5ae3ba
 }
 
 object ApiClient {
@@ -21,6 +38,13 @@ object ApiClient {
         .build()
 
     val service: FinnhubApi = retrofit.create(FinnhubApi::class.java)
+
+    private val retrofitTD = Retrofit.Builder()
+        .baseUrl("https://api.twelvedata.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val serviceTD: TwelveDataApi = retrofitTD.create(TwelveDataApi::class.java)
 }
 
 
@@ -38,4 +62,15 @@ data class SymbolInfo(
     val description: String = "",
     val displaySymbol: String = "",
     val symbol: String = ""
+)
+data class TwelveDataResponse(
+    val values: List<CandleValue>,
+    val status: String
+)
+
+data class CandleValue(
+    val datetime: String,
+    val open: String,
+    val high: String,val low: String,
+    val close: String
 )

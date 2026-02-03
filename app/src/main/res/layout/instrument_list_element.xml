@@ -10,8 +10,9 @@
     >
     <TextView
         android:id="@+id/symbolName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="start"
         android:textColor="#E3E3E3"
         android:layout_marginEnd="6dp"
@@ -21,8 +22,9 @@
 
     <TextView
         android:id="@+id/upPercentage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textColor="#00C402"
         android:layout_marginEnd="6dp"
@@ -31,8 +33,9 @@
 
     <TextView
         android:id="@+id/downPercentage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textColor="#C4000A"
         android:layout_marginEnd="6dp"
@@ -41,11 +44,22 @@
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="end"
         android:textColor="#E3E3E3"
+        android:layout_marginEnd="8dp"
         android:textSize="20sp" />
+    <Button
+        android:id="@+id/viewChartButton"
+        style="@style/CustomAddButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:text="View"
+        android:textAlignment="center"
+        android:clickable="true"/>
 
 
 </LinearLayout>

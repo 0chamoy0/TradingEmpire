@@ -23,7 +23,6 @@ class AvailableFIFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(requireContext())
             db.quoteDao().insertSubscribedSymbol(SubSymbolEntity(symbol = symbolToAdd))
-
             Log.d("AvailableFI", "Subscribed to $symbolToAdd")
             getAllSymbols()
         }

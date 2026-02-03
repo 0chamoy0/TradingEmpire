@@ -5,10 +5,16 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/chartSymbolTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="📊 Candle Chart Placeholder"
+        android:text="📊 Candle Chart"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="center" />
+
+    <com.github.mikephil.charting.charts.CandleStickChart
+        android:id="@+id/candleStickChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

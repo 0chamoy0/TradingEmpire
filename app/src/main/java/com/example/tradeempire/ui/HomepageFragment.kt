@@ -21,9 +21,8 @@ import kotlinx.coroutines.withContext
 class HomepageFragment : Fragment() {
 
     private val adapter = InstrumentAdapter(arrayListOf())
-    // Track the last successful API update time
     private var lastPriceUpdate: Long = 0
-    // Cooldown period in milliseconds (1 minute)
+
     private val updateCooldown: Long = 60 * 1000
 
     override fun onCreateView(
@@ -116,4 +115,5 @@ class HomepageFragment : Fragment() {
             }
         }
     }
+
 }
