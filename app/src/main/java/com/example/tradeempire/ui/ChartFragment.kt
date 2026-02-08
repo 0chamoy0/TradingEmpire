@@ -106,7 +106,7 @@ class ChartFragment : Fragment() {
             decreasingColor = ContextCompat.getColor(requireContext(), R.color.red)
             decreasingPaintStyle = Paint.Style.FILL
             increasingColor = ContextCompat.getColor(requireContext(), R.color.green)
-            increasingPaintStyle = Paint.Style.STROKE
+            increasingPaintStyle = Paint.Style.FILL
             neutralColor = Color.LTGRAY
             setDrawValues(false)
         }

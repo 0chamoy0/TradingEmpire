@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.math.BigInteger
+
 
 interface FinnhubApi {
     @GET("quote")
@@ -23,8 +23,8 @@ interface TwelveDataApi{
     @GET("time_series")
     suspend fun getTwelveDataCandles(
         @Query("symbol") symbol: String,
-        @Query("interval") interval: String, // e.g., "1day" or "1h"
-        @Query("outputsize") outputsize: Int, // Number of candles (e.g., 30)
+        @Query("interval") interval: String,
+        @Query("outputsize") outputsize: Int,
         @Query("apikey") apiKey: String
     ): TwelveDataResponse
 
