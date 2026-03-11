@@ -24,6 +24,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setupThemeSwitch() {
         val themePreference = findPreference<SwitchPreferenceCompat>("pref_key_theme_switch")
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        themePreference?.isChecked = if (currentMode == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED) {
+            (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        } else {
+            currentMode == AppCompatDelegate.MODE_NIGHT_YES
+        }
         themePreference?.setOnPreferenceChangeListener { preference, newValue ->
             val isDarkThemeEnabled = newValue as Boolean
             applyTheme(isDarkThemeEnabled)

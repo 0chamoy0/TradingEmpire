@@ -8,9 +8,9 @@
         android:bottomLeftRadius="10dp" />
     <stroke
         android:width="2dp"
-        android:color="#828282"
+        android:color="?attr/colorOnSurface"
         />
     <solid
-        android:color="#515151"
+        android:color="?attr/colorSurface"
         />
 </shape>

@@ -1,8 +1,10 @@
 package com.example.tradeempire
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.tradeempire.ui.*
 import androidx.core.view.ViewCompat
@@ -18,14 +20,13 @@ MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.coordinator)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
         bottomNavigation = findViewById(R.id.bottom_navigation)
-
-        loadFragment(HomepageFragment())
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -37,6 +38,19 @@ MainActivity : AppCompatActivity() {
             true
         }
 
+        if (savedInstanceState != null) {
+            val selectedId = savedInstanceState.getInt("SELECTED_NAV_ITEM")
+            bottomNavigation.selectedItemId = selectedId
+        } else {
+            bottomNavigation.selectedItemId = R.id.nav_homepage
+            loadFragment(HomepageFragment())
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("SELECTED_NAV_ITEM", bottomNavigation.selectedItemId)
     }
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

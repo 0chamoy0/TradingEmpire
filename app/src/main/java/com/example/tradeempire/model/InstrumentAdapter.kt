@@ -4,6 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tradeempire.R
@@ -14,8 +16,7 @@ class InstrumentAdapter(private val dataSet: ArrayList<Array<String>>) :
     RecyclerView.Adapter<InstrumentAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val symbolView: TextView = view.findViewById(R.id.symbolName)
-        val upView: TextView = view.findViewById(R.id.upPercentage)
-        val downView: TextView = view.findViewById(R.id.downPercentage)
+        val percentageView: TextView = view.findViewById(R.id.percentage)
         val priceView: TextView = view.findViewById(R.id.price)
         val viewChartButton: Button = view.findViewById(R.id.viewChartButton)
     }
@@ -28,16 +29,24 @@ class InstrumentAdapter(private val dataSet: ArrayList<Array<String>>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val context = viewHolder.itemView.context
         viewHolder.symbolView.text = dataSet[position][0]
+
         val change = dataSet[position][1].toDoubleOrNull()
         val symbol = dataSet[position][0]
 
-        if (change!==null && change>=0){
-            viewHolder.upView.text = String.format("%.2f", change) + " %"
-            viewHolder.downView.visibility = View.INVISIBLE
-        } else {
-            viewHolder.downView.text = String.format("%.2f", change) + " %"
-            viewHolder.upView.visibility = View.INVISIBLE
+        if (change != null) {
+            viewHolder.percentageView.text = String.format("%.2f", change) + " %"
+
+            if (change >= 0) {
+                viewHolder.percentageView.setTextColor(
+                    ContextCompat.getColor(context, R.color.green)
+                )
+            } else {
+                viewHolder.percentageView.setTextColor(
+                    ContextCompat.getColor(context, R.color.red)
+                )
+            }
         }
         viewHolder.priceView.text = "$" + dataSet[position][2]
         viewHolder.viewChartButton.setOnClickListener {

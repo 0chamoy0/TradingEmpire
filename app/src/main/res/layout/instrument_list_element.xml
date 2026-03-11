@@ -14,33 +14,24 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
-        android:textColor="#E3E3E3"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginEnd="6dp"
         android:layout_marginStart="6dp"
-        android:textSize="13sp"
+        android:textSize="20sp"
         />
 
     <TextView
-        android:id="@+id/upPercentage"
+        android:id="@+id/percentage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textColor="#00C402"
         android:layout_marginEnd="6dp"
-        android:textSize="13sp"
+        android:textSize="20sp"
         />
 
-    <TextView
-        android:id="@+id/downPercentage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:textColor="#C4000A"
-        android:layout_marginEnd="6dp"
-        android:textSize="13sp"
-        />
+
 
     <TextView
         android:id="@+id/price"
@@ -48,9 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="end"
-        android:textColor="#E3E3E3"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginEnd="8dp"
-        android:textSize="13sp" />
+        android:textSize="20sp" />
     <Button
         android:id="@+id/viewChartButton"
         style="@style/CustomAddButtonStyle"

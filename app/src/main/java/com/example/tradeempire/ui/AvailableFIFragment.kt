@@ -19,6 +19,7 @@ import kotlinx.coroutines.withContext
 
 
 class AvailableFIFragment : Fragment() {
+    private var fullSymbolsList: List<AddInstrumentData> = arrayListOf()
     private val adapter = AddInstrumentAdapter(arrayListOf()) { symbolToAdd ->
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(requireContext())
@@ -31,6 +32,18 @@ class AvailableFIFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerSecondList)
+        val searchView = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.searchView)
+
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })
 
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -80,6 +93,7 @@ class AvailableFIFragment : Fragment() {
                     )
                 }
                 withContext(Dispatchers.Main) {
+                    fullSymbolsList = instruments
                     adapter.updateData(instruments)
                 }
 
@@ -87,6 +101,16 @@ class AvailableFIFragment : Fragment() {
                 Log.e("AvailableFIFragment", "Error fetching symbols: ${e.message}")
             }
         }
+    }
+    private fun filterList(query: String?) {
+        val filteredList = if (query.isNullOrBlank()) {
+            fullSymbolsList // Show everything if search is empty
+        } else {
+            fullSymbolsList.filter {
+                it.addSymbolName.contains(query, ignoreCase = true)
+            }
+        }
+        adapter.updateData(ArrayList(filteredList))
     }
 }
 
